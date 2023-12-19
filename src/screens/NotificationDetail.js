@@ -157,17 +157,17 @@ export const NotificationDetail = () => {
   //   }
   // }
 
-  function removeExtraComma(str) {
-    if (str.endsWith(",")) {
-      //remove any trailing comma
-      str = str.slice(0, -1);
-    }
-    if (str.startsWith(",")) {
-      //remove any trailing comma
-      str = str.substring(1);
-    }
-    return str;
-  }
+  // function removeExtraComma(str) {
+  //   if (str.endsWith(",")) {
+  //     //remove any trailing comma
+  //     str = str.slice(0, -1);
+  //   }
+  //   if (str.startsWith(",")) {
+  //     //remove any trailing comma
+  //     str = str.substring(1);
+  //   }
+  //   return str;
+  // }
 
   // function PrepopulateDetails(details) {
   //   var fullRecepStr = "";
