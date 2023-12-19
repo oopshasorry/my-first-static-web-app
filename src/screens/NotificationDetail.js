@@ -12,11 +12,11 @@ import { useParams, useNavigate } from "react-router-dom";
 export const NotificationDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [destType, setDestType] = useState([]);
+  //const [destType, setDestType] = useState([]);
   const [states, setStates] = useState([]);
   const [file, setFile] = useState();
 
-  const [allDest, setAllDest] = useState(0);
+ // const [allDest, setAllDest] = useState(0);
   const [stateDest, setStateDest] = useState(0);
   const [memberDest, setMemberDest] = useState(0);
   const [columns, setColumns] = useState("1");
@@ -90,15 +90,15 @@ export const NotificationDetail = () => {
     CheckIfAdmin();
   });
 
-  async function GetUserIpAddress() {
-    try {
-      //const res = await axios.get("https://geolocation-db.com/json/");
-      //console.log(res.data);
-      //return res.data.IPv4;
-    } catch {
-      return "127.0.0.1";
-    }
-  }
+  // async function GetUserIpAddress() {
+  //   try {
+  //     //const res = await axios.get("https://geolocation-db.com/json/");
+  //     //console.log(res.data);
+  //     //return res.data.IPv4;
+  //   } catch {
+  //     return "127.0.0.1";
+  //   }
+  // }
 
   // async function GetConnectionToken() {
   //   console.log("GetConnectionToken");
@@ -169,37 +169,37 @@ export const NotificationDetail = () => {
     return str;
   }
 
-  function PrepopulateDetails(details) {
-    var fullRecepStr = "";
-    for (const key in details) {
-      const element = details[key];
-      fullRecepStr += element.NotificationDetailRecipient + ",";
-    }
+  // function PrepopulateDetails(details) {
+  //   var fullRecepStr = "";
+  //   for (const key in details) {
+  //     const element = details[key];
+  //     fullRecepStr += element.NotificationDetailRecipient + ",";
+  //   }
 
-    fullRecepStr = removeExtraComma(fullRecepStr);
+  //   fullRecepStr = removeExtraComma(fullRecepStr);
 
-    // console.log("fullRecepStr: " + fullRecepStr);
-    prepopulateStates(fullRecepStr, 1);
-    prepopulateEmails(fullRecepStr);
-  }
-  function setupDestType(headerObject) {
-    // console.log(headerObject);
+  //   // console.log("fullRecepStr: " + fullRecepStr);
+  //   prepopulateStates(fullRecepStr, 1);
+  //   prepopulateEmails(fullRecepStr);
+  // }
+  // function setupDestType(headerObject) {
+  //   // console.log(headerObject);
 
-    var currentDestType = headerObject.NotificationDest_Type;
-    //console.log("Current Dest type =" + currentDestType);
-    if (currentDestType === "State") {
-      //Show States
-      handleDestChangeOffice();
-    }
-    if (currentDestType === "Member") {
-      //Show Members
-      handleDestChangeMember();
-    }
-    setHasSaved(1);
-  }
+  //   var currentDestType = headerObject.NotificationDest_Type;
+  //   //console.log("Current Dest type =" + currentDestType);
+  //   if (currentDestType === "State") {
+  //     //Show States
+  //     handleDestChangeOffice();
+  //   }
+  //   if (currentDestType === "Member") {
+  //     //Show Members
+  //     handleDestChangeMember();
+  //   }
+  //   setHasSaved(1);
+  // }
 
   function prepopulateStates(curRecep, isCheckedStatus) {
-    var curRecep = curRecep.toString();
+    this.curRecep = curRecep.toString();
     if (curRecep.includes("Bne")) {
       setIsCheckedBne(isCheckedStatus);
     }
@@ -230,14 +230,14 @@ export const NotificationDetail = () => {
     }
   }
 
-  function prepopulateEmails(curRecep) {
-    var recepArray = curRecep.split(",");
-    for (const key in recepArray) {
-      const element = recepArray[key];
-      var recepToBeAdded = element;
-      setEmails((emails) => [...emails, recepToBeAdded]);
-    }
-  }
+  // function prepopulateEmails(curRecep) {
+  //   var recepArray = curRecep.split(",");
+  //   for (const key in recepArray) {
+  //     const element = recepArray[key];
+  //     var recepToBeAdded = element;
+  //     setEmails((emails) => [...emails, recepToBeAdded]);
+  //   }
+  // }
 
   function CheckIfAdmin() {
     let data = sessionStorage.getItem("isAdmin");
@@ -248,15 +248,6 @@ export const NotificationDetail = () => {
     }
   }
 
-  function getUserNameFromSession() {
-    var result = "";
-    let data = sessionStorage.getItem("username");
-    if (data !== null || data !== "") {
-      result = data;
-    }
-    //console.log(result);
-    return result;
-  }
 
   function IsValidNotificationAction() {
     var result = "Y";
@@ -269,8 +260,8 @@ export const NotificationDetail = () => {
       }
     }
     if (
-      headerObject.NotificationDest_Type == "Member" &&
-      detailsListValid == "N"
+      headerObject.NotificationDest_Type === "Member" &&
+      detailsListValid === "N"
     ) {
       result = "At least one member member must be valid";
     }
@@ -285,21 +276,6 @@ export const NotificationDetail = () => {
       alert(msg);
     } else {
       // console.log("ActionBtnClicked!");
-      const emailArray = details.map((object) => {
-        return object.NotificationDetailRecipient;
-      });
-      const emailsString = emailArray.join(",");
-      const notificationUpdate = {
-        ConnectionToken: sessionStorage.getItem("ConnectionToken"),
-        NotificationHeaderID: headerObject.NotificationHeaderID,
-        NotificationWhenCreated_By: headerObject.NotificationWhenCreated_By,
-        NotificationHeader: headerObject.NotificationHeader,
-        NotificationMessage: headerObject.NotificationMessage,
-        NotificationDest_Type: headerObject.NotificationDest_Type,
-        NotificationActionedDate: headerObject.NotificationActionedDate,
-        NotificationActionedBy: getUserNameFromSession(),
-        emails: emailsString,
-      };
       //await actionNotification(notificationUpdate);
       goBack();
     }
@@ -353,8 +329,7 @@ export const NotificationDetail = () => {
     if (headerObject.NotificationMessage.toString().trim() == "") {
       result += "| Empty Message | ";
     }
-    if (getLatestDestType() === "All") {
-    }
+    if (getLatestDestType() === "All") { /* empty */ }
     if (getLatestDestType() === "State") {
       if (states.length === 0 || states[0] === "") {
         result += "| At least 1 state must be selected |";
@@ -424,18 +399,6 @@ export const NotificationDetail = () => {
     if (msg !== "Y") {
       alert(msg);
     } else {
-      const recepString = buildRecepString();
-      const notificationUpdate = {
-        NotificationHeaderID: headerObject.NotificationHeaderID,
-        NotificationWhenCreated_By: getUserNameFromSession(),
-        NotificationHeader: headerObject.NotificationHeader,
-        NotificationMessage: headerObject.NotificationMessage,
-        NotificationDest_Type: getLatestDestType(),
-        NotificationActionedDate: headerObject.NotificationActionedDate,
-        NotificationActionedBy: headerObject.NotificationActionedBy,
-        recipients: recepString,
-        Connection_Token: sessionStorage.getItem("ConnectionToken"),
-      };
       //await updateNotification(notificationUpdate);
       setHasSaved(1);
       goBack();
@@ -453,7 +416,7 @@ export const NotificationDetail = () => {
     setHasSaved(0);
   };
 
-  const importCsv = (event) => {
+  const importCsv = () => {
     const fileReader = new FileReader();
     if (file) {
       fileReader.onload = function (event) {
@@ -471,7 +434,7 @@ export const NotificationDetail = () => {
     setHasSaved(0);
   };
 
-  const importList = (event) => {
+  const importList = () => {
     const fileReader = new FileReader();
     if (file) {
       fileReader.onload = function (event) {
@@ -489,7 +452,7 @@ export const NotificationDetail = () => {
     setHasSaved(0);
   };
 
-  function checkEmailValiditiy(index, hasSavedVar) {
+  function checkEmailValiditiy(index) {
     if (emails[index] === "") {
       return changedBoderStyle2;
     }
@@ -786,7 +749,6 @@ export const NotificationDetail = () => {
   };
 
   function destTypeClear() {
-    setAllDest(0);
     setStateDest(0);
     setMemberDest(0);
   }
@@ -795,10 +757,8 @@ export const NotificationDetail = () => {
     return "Bne,Syd,Ade,Pth,Mel";
   }
 
-  const handleDestChangeAll = (event) => {
-    setDestType("All");
+  const handleDestChangeAll = () => {
     destTypeClear();
-    setAllDest(1);
 
     //Clear other dest type values
     setStates([]);
@@ -806,16 +766,14 @@ export const NotificationDetail = () => {
     prepopulateStates(fullListOfStates, 0);
     setHasSaved(0);
   };
-  const handleDestChangeOffice = (event) => {
-    setDestType("State");
+  const handleDestChangeOffice = () => {
     destTypeClear();
     setStateDest(1);
     //Clear other dest type values
     setEmails([]);
     setHasSaved(0);
   };
-  const handleDestChangeMember = (event) => {
-    setDestType("Member");
+  const handleDestChangeMember = () => {
     destTypeClear();
     setMemberDest(1);
     //Clear other dest type values
@@ -911,7 +869,6 @@ export const NotificationDetail = () => {
                 <button
                   className="btn btn-primary"
                   style={{ marginRight: "30px" }}
-                  text="Office"
                   onClick={handleDestChangeOffice}
                 >
                   Office
@@ -919,7 +876,6 @@ export const NotificationDetail = () => {
                 <button
                   className="btn btn-primary"
                   style={{ marginRight: "30px" }}
-                  text="Member"
                   onClick={handleDestChangeMember}
                 >
                   Member

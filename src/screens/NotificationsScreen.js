@@ -15,16 +15,6 @@ export const NotificationsScreen = () => {
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
 
-  const initialFilterOptions = {
-    Actioned: null,
-    DestinationType: "",
-    ActionDateFrom: "",
-    ActionDateTo: "",
-    HeaderKeywords: "",
-    MessageKeywords: "",
-  };
-  const [filterOptionsState, setFilterOptionsState] =
-    useState(initialFilterOptions);
   const [filterOptionActioned, setFilterOptionActioned] = useState("");
   const [filterOptionDestinationType, setFilterOptionDestinationType] =
     useState("");
@@ -53,15 +43,6 @@ export const NotificationsScreen = () => {
 
   }, []);
 
-  async function GetUserIpAddress() {
-    try {
-      //const res = await axios.get("https://geolocation-db.com/json/");
-      //console.log(res.data);
-      //return res.data.IPv4;
-    } catch {
-      return "127.0.0.1";
-    }
-  }
 
   // async function GetConnectionToken() {
   //   let data = sessionStorage.getItem("ConnectionToken");
@@ -103,29 +84,6 @@ export const NotificationsScreen = () => {
   //     }
   //   }
   // }
-  function trygetUsername() {
-    //FORMAT notifications?secretCode=abc123/UserID:nxs
-    var fullURL = window.location.href;
-    var userIdParam = "UserID:";
-
-    if (fullURL.includes(userIdParam)) {
-      var startOfUserName = fullURL.indexOf("UserID:");
-      var justUserName = fullURL.substring(startOfUserName);
-      var onlyUserName = justUserName.split(":");
-      sessionStorage.setItem("username", onlyUserName[1]);
-
-      //if (fullURL.includes("secretCode=" + adminCode)) {
-      //  sessionStorage.setItem("isAdmin", "Y");
-      //  console.log("ADMIN = Y");
-      //} else {
-        //sessionStorage.setItem("isAdmin", "N");
-        //console.log("ADMIN = N");
-      //}
-    //   navigate("/notifications");
-    // } else if (sessionStorage.getItem("username") === null) {
-      //window.location.replace("google");
-    }
-  }
 
   function BuildRowClasses(index, notification) {
     var result = "";
@@ -189,7 +147,7 @@ export const NotificationsScreen = () => {
   };
 
   // Delete notification and associated answers
-  async function deleteNotification(ConnectionToken, id) {
+  async function deleteNotification( id) {
     console.log(id);
     // try {
     //   if (!id) id = 0;
@@ -280,14 +238,7 @@ export const NotificationsScreen = () => {
     }
 
     //Gather filter options
-    var filterOptionsToUpdate = {
-      Actioned: filterOptionActioned,
-      DestinationType: filterOptionDestinationType,
-      ActionDateFrom: filterOptionActionDateFrom,
-      ActionDateTo: filterOptionActionDateTo,
-      HeaderKeywords: filterOptionHeader,
-      MessageKeywords: filterOptionMsg,
-    };
+
 
   //   getAllNotificationsWithFilter(
   //     sessionStorage.getItem("ConnectionToken"),
@@ -319,10 +270,6 @@ export const NotificationsScreen = () => {
     setFilterOptionActioned(e.target.value);
   };
 
-  const handleInputHeaderChange = (e) => {
-    //console.log("handleInputHeaderChange: " + e.target.value);
-    setFilterOptionHeader(e.target.value);
-  };
 
   const handleInputMsgChange = (e) => {
     //console.log("handleInputMsgChange: " + e.target.value);
@@ -357,7 +304,7 @@ export const NotificationsScreen = () => {
       <div className="filterOptionsDiv ">
         <div className="row">
           <div className="form-group col-2">
-            <label for="IsActionedFilterDropDown">Status</label>
+            <label htmlFor="IsActionedFilterDropDown">Status</label>
             <br />
             <select
               name="IsActionedFilterDropDown"
@@ -371,7 +318,7 @@ export const NotificationsScreen = () => {
           </div>
 
           <div className="form-group col-3">
-            <label for="DestTypeDropdown">Location</label>
+            <label htmlFor="DestTypeDropdown">Location</label>
             <br />
             <select
               name="DestTypeDropdown"
@@ -385,7 +332,7 @@ export const NotificationsScreen = () => {
             </select>
           </div>
           <div className={filterOptionActionDateVisible}>
-            <label for="notification_date_action_from">
+            <label htmlFor="notification_date_action_from">
               Before This Date
             </label>
             <input
@@ -398,7 +345,7 @@ export const NotificationsScreen = () => {
           </div>
 
           <div className={filterOptionActionDateVisible}>
-            <label for="notification_date_action_to">After This Date</label>
+            <label htmlFor="notification_date_action_to">After This Date</label>
             <input
               type="date"
               name="notification_date_action_to"
@@ -433,7 +380,7 @@ export const NotificationsScreen = () => {
             <th>Case Number</th>
             <th>Status</th>
             <th>Subject <br></br> <div className="form-group col-6">
-            <label for="notification_Message"></label>
+            <label htmlFor="notification_Message"></label>
             <input
               type="text"
               name="notification_Message"
