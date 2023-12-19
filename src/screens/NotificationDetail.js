@@ -288,15 +288,15 @@ export const NotificationDetail = () => {
     var result = "row";
     //if brand new then hide it as well
     if (headerObject.NotificationHeaderID === 0) {
-      result = "row" + " hide-action-date";
+      result = "row hide-action-date";
     }
     //if already actioned then hide action section
     if (headerObject.NotificationActionedDate !== null) {
-      result = "row" + " hide-action-date";
+      result = "row hide-action-date";
     } else {
       //if edited but not save then hide section
-      if (isSaved == 0) {
-        result = "row" + " hide-action-date";
+      if (isSaved === 0) {
+        result = "row hide-action-date";
       }
     }
     return result;
@@ -323,10 +323,10 @@ export const NotificationDetail = () => {
   function IsValidNotification() {
     var result = "";
     //Notifcation Message validation
-    if (headerObject.NotificationHeader.toString().trim() == "") {
+    if (headerObject.NotificationHeader.toString().trim() === "") {
       result += "Empty Header | ";
     }
-    if (headerObject.NotificationMessage.toString().trim() == "") {
+    if (headerObject.NotificationMessage.toString().trim() === "") {
       result += "| Empty Message | ";
     }
     if (getLatestDestType() === "All") { /* empty */ }
@@ -368,19 +368,19 @@ export const NotificationDetail = () => {
     return result;
   }
 
-  function buildRecepString() {
-    var result = "";
-    if (stateDest == 1) {
-      setEmails([]);
-      result = states.join(",");
-    }
-    if (memberDest === 1) {
-      setStates([]);
-      result = emails.join(",");
-    }
-    result = removeExtraComma(result);
-    return result;
-  }
+  // function buildRecepString() {
+  //   var result = "";
+  //   if (stateDest == 1) {
+  //     setEmails([]);
+  //     result = states.join(",");
+  //   }
+  //   if (memberDest === 1) {
+  //     setStates([]);
+  //     result = emails.join(",");
+  //   }
+  //   result = removeExtraComma(result);
+  //   return result;
+  // }
 
   function getLatestDestType() {
     var result = "All";

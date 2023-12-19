@@ -18,7 +18,7 @@ export const NotificationsScreen = () => {
   const [filterOptionActioned, setFilterOptionActioned] = useState("");
   const [filterOptionDestinationType, setFilterOptionDestinationType] =
     useState("");
-  const [filterOptionHeader, setFilterOptionHeader] = useState("");
+  //const [filterOptionHeader, setFilterOptionHeader] = useState("");
   const [filterOptionMsg, setFilterOptionMsg] = useState("");
   const [filterOptionActionDateFrom, setFilterOptionActionDateFrom] =
     useState("");
@@ -128,7 +128,7 @@ export const NotificationsScreen = () => {
   const onEditHandler = (e) => {
     let id = e.target.getAttribute("id");
     console.log("after clicking edit: " + id);
-    navigate("/notification/detail" + "/" + id);
+    navigate("/notification/detail/" + id);
   };
 
   const onDeleteHandler = (e) => {
